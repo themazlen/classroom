@@ -19,13 +19,27 @@ class TennisGame
         };
     }
 
+    private function isTied()
+    {
+        return $this->pointsKrypto == $this->pointsGoofy;
+    }
+
+    private function hasSum($totalPoints){
+
+    }
+
 
     public function getScore()
     {
 
-        if ($this->pointsKrypto == $this->pointsGoofy) {
+        if ($this->isTied() && array_sum([$this->pointsKrypto, $this->pointsGoofy]) >= 4) {
+            return 'Deuce';
+        }
+
+        if ($this->isTied() && array_sum([$this->pointsKrypto, $this->pointsGoofy]) < 4){
             return $this->mapPoints($this->pointsKrypto) . ' - All';
         }
+
         return $this->mapPoints($this->pointsKrypto) . ' - ' . $this->mapPoints($this->pointsGoofy);
     }
 

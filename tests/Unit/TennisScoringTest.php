@@ -56,4 +56,14 @@ class TennisScoringTest extends TestCase
         $this->assertEquals("Love - 30", $game->getScore());
     }
 
+    public function test2_2IsDeuce(){
+        $game = new TennisGame();
+        $game->kryptoScoresPoint();
+        $game->kryptoScoresPoint();
+        $game->goofyScoresPoint();
+        $game->goofyScoresPoint();
+
+        $this->assertEquals("Deuce", $game->getScore());
+    }
+
 }
