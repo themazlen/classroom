@@ -10,7 +10,7 @@ class PrimeFactorsTest extends TestCase
     /**
      * A basic unit test example.
      *
-     * @dataProvider Factors
+     * @dataProvider factors
      * @return void
      */
     public function testItGeneratesPrimeNumbersForEachFactor($number, $result)

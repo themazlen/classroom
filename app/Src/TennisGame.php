@@ -4,6 +4,8 @@ namespace App\Src;
 
 class TennisGame
 {
+
+
     public int $pointsKrypto = 0;
     public int $pointsGoofy = 0;
 
@@ -24,8 +26,8 @@ class TennisGame
         return $this->pointsKrypto == $this->pointsGoofy;
     }
 
-    private function hasSum($totalPoints){
-
+    public function leader(){
+        return $this->pointsKrypto > $this->pointsGoofy ? 'Krypto' : 'Goofy';
     }
 
 
@@ -40,6 +42,15 @@ class TennisGame
             return $this->mapPoints($this->pointsKrypto) . ' - All';
         }
 
+        if ($this->someoneHasThreePoints() && $this->someoneIsLeadingByOne()){
+            return 'Advantage - ' . $this->leader();
+        }
+
+        if ($this->pointsKrypto == 4){
+            return 'Winner - Krypto';
+        }
+
+
         return $this->mapPoints($this->pointsKrypto) . ' - ' . $this->mapPoints($this->pointsGoofy);
     }
 
@@ -52,5 +63,21 @@ class TennisGame
     public function goofyScoresPoint()
     {
         $this->pointsGoofy++;
+    }
+
+    /**
+     * @return bool
+     */
+    private function someoneIsLeadingByOne(): bool
+    {
+        return abs($this->pointsKrypto - $this->pointsGoofy) == 1;
+    }
+
+    /**
+     * @return bool
+     */
+    private function someoneHasThreePoints(): bool
+    {
+        return $this->pointsKrypto >= 3 || $this->pointsGoofy >= 3;
     }
 }
