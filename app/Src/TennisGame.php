@@ -43,11 +43,11 @@ class TennisGame
         }
 
         if ($this->someoneHasThreePoints() && $this->someoneIsLeadingByOne()){
-            return 'Advantage - ' . $this->leader();
+            return 'Advantage, ' . $this->leader();
         }
 
-        if ($this->pointsKrypto == 4){
-            return 'Winner - Krypto';
+        if ($this->someoneHasAtLeastFourPoints() && $this->someoneWinsByTwo()){
+            return 'Winner, ' . $this->leader();
         }
 
 
@@ -79,5 +79,18 @@ class TennisGame
     private function someoneHasThreePoints(): bool
     {
         return $this->pointsKrypto >= 3 || $this->pointsGoofy >= 3;
+    }
+
+    /**
+     * @return bool
+     */
+    private function someoneHasAtLeastFourPoints(): bool
+    {
+        return $this->pointsKrypto >= 4 || $this->pointsGoofy >= 4;
+    }
+
+    private function someoneWinsByTwo(): bool
+    {
+       return abs(($this->pointsKrypto - $this->pointsGoofy) || ($this->pointsKrypto - $this->pointsGoofy) == 2);
     }
 }

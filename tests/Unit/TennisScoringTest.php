@@ -33,18 +33,20 @@ class TennisScoringTest extends TestCase
     public function scores(){
         return [
             [0,0, 'Love - All'],
-            [1,0,'15 - Love'],
-            [1,1,'15 - All'],
-            [2,0,'30 - Love'],
+            [1,0, '15 - Love'],
+            [1,1, '15 - All'],
+            [2,0, '30 - Love'],
             [0,1, 'Love - 15'],
             [0,2, 'Love - 30'],
             [2,2, 'Deuce'],
-            [3,2, 'Advantage - Krypto'],
-            [4,3, 'Advantage - Krypto'],
-            [5,4, 'Advantage - Krypto'],
-            [2,3, 'Advantage - Goofy'],
-            [4,2, 'Winner - Krypto'],
-            [2,4, 'Winner - Goofy']
+            [3,2, 'Advantage, Krypto'],
+            [4,3, 'Advantage, Krypto'],
+            [5,4, 'Advantage, Krypto'],
+            [2,3, 'Advantage, Goofy'],
+            [4,2, 'Winner, Krypto'],
+            [3,5, 'Winner, Goofy'],
+            [7,5, 'Winner, Krypto'],
+            [9,11, 'Winner, Goofy'],
         ];
     }
 
