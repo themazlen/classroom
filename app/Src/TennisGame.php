@@ -34,22 +34,17 @@ class TennisGame
     public function getScore()
     {
 
-        if ($this->isTied() && array_sum([$this->pointsKrypto, $this->pointsGoofy]) >= 4) {
-            return 'Deuce';
-        }
-
-        if ($this->isTied() && array_sum([$this->pointsKrypto, $this->pointsGoofy]) < 4){
-            return $this->mapPoints($this->pointsKrypto) . ' - All';
-        }
-
-        if ($this->someoneHasThreePoints() && $this->someoneIsLeadingByOne()){
+        if ($this->someoneHasAtLeastPoints(3) && $this->someoneIsLeadingByOne()){
             return 'Advantage, ' . $this->leader();
         }
 
-        if ($this->someoneHasAtLeastFourPoints() && $this->someoneWinsByTwo()){
+        if ($this->someoneHasAtLeastPoints(4) && $this->someoneWinsByTwo()){
             return 'Winner, ' . $this->leader();
         }
 
+        if($this->isTied()) {
+            return $this->combinedPoints() >= 6 ? 'Deuce' : $this->mapPoints($this->pointsKrypto) . ' - All';
+        }
 
         return $this->mapPoints($this->pointsKrypto) . ' - ' . $this->mapPoints($this->pointsGoofy);
     }
@@ -73,24 +68,25 @@ class TennisGame
         return abs($this->pointsKrypto - $this->pointsGoofy) == 1;
     }
 
-    /**
-     * @return bool
-     */
-    private function someoneHasThreePoints(): bool
-    {
-        return $this->pointsKrypto >= 3 || $this->pointsGoofy >= 3;
-    }
 
     /**
      * @return bool
      */
-    private function someoneHasAtLeastFourPoints(): bool
+    private function someoneHasAtLeastPoints(int $points): bool
     {
-        return $this->pointsKrypto >= 4 || $this->pointsGoofy >= 4;
+        return $this->pointsKrypto >= $points || $this->pointsGoofy >= $points;
     }
 
     private function someoneWinsByTwo(): bool
     {
-       return abs(($this->pointsKrypto - $this->pointsGoofy) || ($this->pointsKrypto - $this->pointsGoofy) == 2);
+       return abs($this->pointsKrypto - $this->pointsGoofy) == 2;
+    }
+
+    /**
+     * @return float|int
+     */
+    private function combinedPoints(): int|float
+    {
+        return array_sum([$this->pointsKrypto, $this->pointsGoofy]);
     }
 }
